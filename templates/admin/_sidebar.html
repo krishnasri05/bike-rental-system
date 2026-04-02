@@ -1,0 +1,14 @@
+<div class="col-md-3 col-lg-2 sidebar">
+    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-4">
+        <a href="{{ url_for('admin_dashboard') }}" class="d-flex align-items-center pb-3 mb-4 text-white text-decoration-none border-bottom w-100">
+            <i class="fas fa-bicycle me-2 fs-4"></i>
+            <span class="fs-5 d-none d-sm-inline">Admin Panel</span>
+        </a>
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100">
+            <li class="nav-item w-100"><a href="{{ url_for('admin_dashboard') }}" class="nav-link px-0"><i class="fas fa-tachometer-alt me-3"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span></a></li>
+            <li class="nav-item w-100"><a href="{{ url_for('admin_bikes') }}" class="nav-link px-0"><i class="fas fa-bicycle me-3"></i><span class="ms-1 d-none d-sm-inline">Manage Bikes</span></a></li>
+            <li class="nav-item w-100"><a href="{{ url_for('admin_rentals') }}" class="nav-link px-0"><i class="fas fa-list me-3"></i><span class="ms-1 d-none d-sm-inline">Manage Rentals</span></a></li>
+            <li class="nav-item w-100"><a href="{{ url_for('admin_profile') }}" class="nav-link px-0"><i class="fas fa-user me-3"></i><span class="ms-1 d-none d-sm-inline">Profile</span></a></li>
+        </ul>
+    </div>
+</div>

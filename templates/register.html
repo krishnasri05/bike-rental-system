@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block title %}Register - Bike Rental System{% endblock %}
+{% block head %}
+<style>
+.form-check-input:checked { background-color: #00f2fe; border-color: #00f2fe; }
+.password-strength { height: 5px; border-radius: 5px; margin-top: 5px; transition: all .3s ease; }
+.strength-weak { background-color: #dc3545; width: 25%; box-shadow: 0 0 10px #dc3545; }
+.strength-fair { background-color: #ffc107; width: 50%; box-shadow: 0 0 10px #ffc107; }
+.strength-good { background-color: #28a745; width: 75%; box-shadow: 0 0 10px #28a745; }
+.strength-strong { background-color: #00f2fe; width: 100%; box-shadow: 0 0 15px #00f2fe; }
+@keyframes fadeUp {
+    0% { transform: translateY(30px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+</style>
+{% endblock %}
+{% block content %}
+<div style="min-height: 100vh; display: flex; align-items: center; padding: 40px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="glass-panel overflow-hidden" style="animation: fadeUp 0.8s ease forwards;">
+                    <div class="text-center py-4" style="background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <h2 class="mb-2" style="background: linear-gradient(45deg, #00f2fe, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">
+                            <i class="fas fa-bicycle" style="color: #00f2fe;"></i> Join BikeRental
+                        </h2>
+                        <p class="mb-0" style="color: rgba(255,255,255,0.7);">Create your account and start your biking adventure</p>
+                    </div>
+                    
+                    <div class="p-4 p-md-5">
+                        <form method="POST" id="registrationForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label text-white-50">Full Name <span class="text-info">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0 text-white" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-user"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-0" name="full_name" required placeholder="Enter full name" style="box-shadow:none;">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label text-white-50">Username <span class="text-info">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0 text-white" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-at"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-0" name="username" required placeholder="Choose a username" style="box-shadow:none;">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label text-white-50">Email Address <span class="text-info">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-end-0 text-white" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" class="form-control border-start-0 ps-0" name="email" required placeholder="Enter email address" style="box-shadow:none;">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label text-white-50">Password <span class="text-info">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0 text-white" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-lock"></i></span>
+                                        <input type="password" class="form-control border-start-0 border-end-0 px-0" id="password" name="password" required placeholder="Create password" style="box-shadow:none;">
+                                        <button type="button" class="input-group-text bg-transparent text-white toggle-password" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                    <div class="password-strength mt-2" id="passwordStrength"></div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label text-white-50">Confirm Password <span class="text-info">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0 text-white" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-lock"></i></span>
+                                        <input type="password" class="form-control border-start-0 border-end-0 px-0" id="confirm_password" name="confirm_password" required placeholder="Confirm password" style="box-shadow:none;">
+                                        <button type="button" class="input-group-text bg-transparent text-white toggle-password" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                    <div class="form-text mt-1" id="passwordMatch"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label text-white-50">Phone Number</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0 text-white" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-phone"></i></span>
+                                        <input type="tel" class="form-control border-start-0 ps-0" name="phone" placeholder="Your phone number" style="box-shadow:none;">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label text-white-50">License Number</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0 text-white" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-id-card"></i></span>
+                                        <input type="text" class="form-control border-start-0 ps-0" id="license_number" name="license_number" placeholder="Optional at registration" style="box-shadow:none;">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-5">
+                                <label class="form-label text-white-50">Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-end-0 text-white" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-home"></i></span>
+                                    <textarea class="form-control border-start-0 ps-0" name="address" rows="2" placeholder="Your complete address" style="box-shadow:none;"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="terms" required>
+                                    <label class="form-check-label text-white-50" for="terms">
+                                        I agree to the <a href="#" style="color: #00f2fe;">Terms of Service</a> & <a href="#" style="color: #00f2fe;">Privacy Policy</a>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid mb-4">
+                                <button type="submit" class="btn btn-primary btn-lg py-3" style="border-radius: 30px;">
+                                    <i class="fas fa-user-plus me-2"></i>Create Account
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="text-center">
+                            <p class="mb-3" style="color: rgba(255,255,255,0.7);">Already have an account? <a href="{{ url_for('login') }}" style="color: #00f2fe; font-weight: bold; text-decoration: none;">Sign in here</a></p>
+                            <a href="{{ url_for('home') }}" class="btn btn-glass btn-sm px-4">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.querySelectorAll('.toggle-password').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const input = this.closest('.input-group').querySelector('input');
+        const icon = this.querySelector('i');
+        if(input.type === 'password') {
+            input.type = 'text'; icon.classList.replace('fa-eye','fa-eye-slash');
+        } else {
+            input.type = 'password'; icon.classList.replace('fa-eye-slash','fa-eye');
+        }
+    });
+});
+document.getElementById('password').addEventListener('input', function() {
+    const p = this.value;
+    const b = document.getElementById('passwordStrength');
+    let s = 0;
+    if(p.length >= 6) s += 25;
+    if(p.match(/[a-z]/) && p.match(/[A-Z]/)) s += 25;
+    if(p.match(/\d/)) s += 25;
+    if(p.match(/[^a-zA-Z\d]/)) s += 25;
+    b.className = 'password-strength';
+    if(s <= 25) b.classList.add('strength-weak');
+    else if(s <= 50) b.classList.add('strength-fair');
+    else if(s <= 75) b.classList.add('strength-good');
+    else b.classList.add('strength-strong');
+});
+document.getElementById('confirm_password').addEventListener('input', function() {
+    const p = document.getElementById('password').value;
+    const c = this.value;
+    const t = document.getElementById('passwordMatch');
+    if(c === '') { t.textContent = ''; t.className = 'form-text text-white-50'; }
+    else if(p === c) { t.textContent = 'Passwords match!'; t.className = 'form-text text-info'; }
+    else { t.textContent = 'Passwords do not match!'; t.className = 'form-text text-danger'; }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,19 @@
+# pycache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Ignore local db/uploads if building clean in prod, but typically we want the initial DB setup handled via code.
+# The user wants to host this. Render has ephemeral storage for free tiers, so any user uploads will disappear on restart unless a persistent disk is set up.
+# We'll keep our static images for the seed bikes though.
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block title %}Bike Rental System - Welcome{% endblock %}
+{% block head %}
+<style>
+    .home-wrapper {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+    }
+    .landing-card {
+        max-width: 500px;
+        width: 100%;
+        padding: 40px;
+        text-align: center;
+        transform: translateY(40px);
+        opacity: 0;
+        animation: fadeUp 1s ease forwards;
+    }
+    .top-logo {
+        width: 100px;
+        height: auto;
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeUp 1.2s ease forwards;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(0,242,254,0.5);
+    }
+    .title {
+        background: linear-gradient(45deg, #00f2fe, #4facfe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+    .subtitle {
+        color: rgba(255,255,255,0.7);
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+    .college-name {
+        color: rgba(255,255,255,0.9);
+        font-weight: 600;
+        margin-bottom: 16px;
+        font-size: 1rem;
+    }
+    .member {
+        display: flex;
+        align-items: center;
+        background: rgba(255,255,255,0.05);
+        padding: 15px;
+        border-radius: 12px;
+        margin: 10px 0;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeUp 0.8s ease forwards;
+    }
+    .member:hover {
+        background: rgba(255,255,255,0.15);
+        transform: scale(1.02);
+    }
+    .member:nth-child(5) { animation-delay: 0.3s; }
+    .member:nth-child(6) { animation-delay: 0.4s; }
+    .member:nth-child(7) { animation-delay: 0.5s; }
+    .member:nth-child(8) { animation-delay: 0.6s; }
+    .member:nth-child(9) { animation-delay: 0.7s; }
+    
+    .circle {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(45deg, #00f2fe, #4facfe);
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0,242,254,0.4);
+    }
+    .guide {
+        margin-top: 25px;
+        padding: 20px;
+        background: rgba(0, 242, 254, 0.1);
+        border: 1px dashed #00f2fe;
+        border-radius: 12px;
+        color: #00f2fe;
+        font-weight: 600;
+        opacity: 0;
+        animation: fadeUp 1s ease forwards;
+        animation-delay: 0.8s;
+    }
+    @keyframes fadeUp {
+        to { transform: translateY(0); opacity: 1; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="home-wrapper">
+    <div class="glass-panel landing-card">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" class="top-logo">
+        <h2 class="title" style="margin-top: 0px">BIKE RENTAL SYSTEM</h2>
+        <p class="subtitle">Next-Gen Booking & Management</p>
+        <p class="college-name">Gayatri Vidya Parishad College for Degree and PG Courses</p>
+        
+        <div class="member"><div class="circle">P</div> <span>P. Yeswanthi</span></div>
+        <div class="member"><div class="circle">S</div> <span>S. Sri Varshitha</span></div>
+        <div class="member"><div class="circle">P</div> <span>P. Krishna Sri</span></div>
+        <div class="member"><div class="circle">T</div> <span>T. Satya Padma Priya</span></div>
+        <div class="member"><div class="circle">S</div> <span>S. Adilakshmi</span></div>
+        
+        <div class="guide">
+            <small class="text-uppercase" style="letter-spacing: 2px;">Guided By</small><br>
+            <span style="font-size: 1.2rem;">MR. T. SRI KRISHNA</span>
+        </div>
+        
+        <a href="{{ url_for('main_page') }}" class="btn btn-glass w-100 mt-4 py-3" style="animation-delay: 1s;">
+            Proceed to Platform <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}

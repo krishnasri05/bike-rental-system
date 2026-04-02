@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard - Bike Rental System{% endblock %}
+{% block content %}
+<div class="container-fluid"><div class="row">
+{% include 'admin/_sidebar.html' %}
+<div class="col-md-9 col-lg-10 main-content">
+{% set title='Admin Dashboard' %}{% include 'admin/_topbar.html' %}
+<div class="container-fluid mt-4">
+<div class="row g-4">
+<div class="col-xl-2 col-md-4 col-sm-6"><div class="card stat-card text-white bg-primary"><div class="card-body"><div class="stat-number">{{ bikes_count }}</div><div>Total Bikes</div></div></div></div>
+<div class="col-xl-2 col-md-4 col-sm-6"><div class="card stat-card text-white bg-success"><div class="card-body"><div class="stat-number">{{ clients_count }}</div><div>Total Clients</div></div></div></div>
+<div class="col-xl-2 col-md-4 col-sm-6"><div class="card stat-card text-white bg-warning"><div class="card-body"><div class="stat-number">{{ active_rentals }}</div><div>Active Rentals</div></div></div></div>
+<div class="col-xl-2 col-md-4 col-sm-6"><div class="card stat-card text-white bg-info"><div class="card-body"><div class="stat-number">{{ pending_rentals }}</div><div>Pending Rentals</div></div></div></div>
+<div class="col-xl-2 col-md-4 col-sm-6"><div class="card stat-card text-white bg-dark"><div class="card-body"><div class="stat-number">Rs{{ '%.2f'|format(total_revenue) }}</div><div>Total Revenue</div></div></div></div>
+</div>
+<div class="row mt-5"><div class="col-12"><div class="card"><div class="card-header"><h5 class="card-title mb-0"><i class="fas fa-clock me-2"></i>Recent Rentals</h5></div><div class="card-body">
+{% if recent_rentals %}
+<div class="table-responsive"><table class="table table-hover"><thead><tr><th>Rental ID</th><th>Client</th><th>Bike</th><th>Start Date</th><th>Total Cost</th><th>Status</th></tr></thead><tbody>
+{% for rental in recent_rentals %}<tr><td>#{{ rental.rental_id }}</td><td>{{ rental.full_name }}</td><td>{{ rental.bike_name }}</td><td>{{ format_datetime(rental.rental_start) }}</td><td>{{ format_currency(rental.total_cost) }}</td><td><span class="badge {{ badge_class(rental.status) }}">{{ rental.status }}</span></td></tr>{% endfor %}
+</tbody></table></div><a href="{{ url_for('admin_rentals') }}" class="btn btn-gradient">View All Rentals</a>
+{% else %}<p class="text-muted">No rentals found.</p>{% endif %}
+</div></div></div></div>
+</div></div></div></div>
+{% endblock %}

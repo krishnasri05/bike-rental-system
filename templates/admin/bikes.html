@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Manage Bikes - Admin{% endblock %}
+{% block content %}
+<div class="container-fluid"><div class="row">
+{% include 'admin/_sidebar.html' %}
+<div class="col-md-9 col-lg-10 main-content">
+{% set title='Manage Bikes' %}{% include 'admin/_topbar.html' %}
+<div class="container-fluid mt-4">
+<div class="d-flex justify-content-between align-items-center mb-4"><div><h2><i class="fas fa-bicycle me-2"></i>Manage Bikes</h2><p class="text-muted">Manage your bike inventory</p></div><a href="{{ url_for('admin_add_bike') }}" class="btn btn-gradient"><i class="fas fa-plus me-2"></i>Add New Bike</a></div>
+<div class="card mb-4"><div class="card-body"><form method="GET" class="row g-3"><div class="col-md-8"><input type="text" name="search" class="form-control" placeholder="Search bikes by brand, model, or name..." value="{{ search }}"></div><div class="col-md-2"><button type="submit" class="btn btn-primary w-100">Search</button></div><div class="col-md-2"><a href="{{ url_for('admin_bikes') }}" class="btn btn-outline-secondary w-100">Reset</a></div></form></div></div>
+<div class="card"><div class="card-header"><h5 class="card-title mb-0"><i class="fas fa-list me-2"></i>All Bikes <span class="badge bg-primary ms-2">{{ bikes|length }}</span></h5></div><div class="card-body">
+{% if bikes %}<div class="table-responsive"><table class="table table-hover"><thead><tr><th>Image</th><th>Name</th><th>Brand</th><th>Model</th><th>Type</th><th>Price/Hour</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+{% for bike in bikes %}<tr><td><img src="{{ resolve_image_path(bike.image_path) }}" alt="{{ bike.name }}" style="width:65px;height:65px;object-fit:cover;border-radius:8px;"></td><td>{{ bike.name }}</td><td>{{ bike.brand }}</td><td>{{ bike.model }}</td><td>{{ bike.type }}</td><td>{{ format_currency(bike.price_per_hour) }}</td><td><span class="badge {{ badge_class(bike.status) }}">{{ bike.status }}</span></td><td><div class="btn-group"><a href="{{ url_for('admin_edit_bike', bike_id=bike.bike_id) }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></a><form method="post" action="{{ url_for('admin_delete_bike', bike_id=bike.bike_id) }}" onsubmit="return confirm('Are you sure you want to delete this bike?')"><button class="btn btn-sm btn-outline-danger" type="submit"><i class="fas fa-trash"></i></button></form></div></td></tr>{% endfor %}
+</tbody></table></div>{% else %}<div class="text-center py-5"><i class="fas fa-bicycle fa-3x text-muted mb-3"></i><h4>No Bikes Found</h4><p class="text-muted">No bikes match your search criteria.</p></div>{% endif %}
+</div></div>
+</div></div></div></div>
+{% endblock %}

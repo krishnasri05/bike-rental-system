@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}Login - Bike Rental System{% endblock %}
+
+{% block content %}
+<div style="min-height: 100vh; display: flex; align-items: center; padding: 40px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5 col-lg-4">
+                <div class="glass-panel overflow-hidden" style="animation: fadeUp 0.8s ease forwards;">
+                    <div class="text-center py-4" style="background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <h2 class="mb-0" style="background: linear-gradient(45deg, #00f2fe, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">
+                            <i class="fas fa-bicycle" style="color: #00f2fe;"></i> BikeRental
+                        </h2>
+                        <p class="mb-0 mt-2" style="color: rgba(255,255,255,0.7);">Sign in to your account</p>
+                    </div>
+                    <div class="p-4 p-md-5">
+                        <ul class="nav nav-pills nav-justified mb-4" id="loginTabs" style="background: rgba(255,255,255,0.05); padding: 5px; border-radius: 30px;">
+                            <li class="nav-item">
+                                <a class="nav-link {{ 'active' if login_type == 'client' else '' }}" href="{{ url_for('login', type='client') }}" style="{{ 'background: #00f2fe; color: #000; border-radius: 25px; font-weight: 600;' if login_type == 'client' else 'color: #fff;' }}">
+                                    <i class="fas fa-user me-2"></i>Client
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ 'active' if login_type == 'admin' else '' }}" href="{{ url_for('login', type='admin') }}" style="{{ 'background: #00f2fe; color: #000; border-radius: 25px; font-weight: 600;' if login_type == 'admin' else 'color: #fff;' }}">
+                                    <i class="fas fa-cog me-2"></i>Admin
+                                </a>
+                            </li>
+                        </ul>
+                        <form method="POST">
+                            <input type="hidden" name="login_type" value="{{ login_type }}">
+                            <div class="mb-4">
+                                <label for="email" class="form-label text-white-50">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-end-0 text-white" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" class="form-control form-control-lg border-start-0 ps-0" id="email" name="email" placeholder="Enter your email" required style="box-shadow: none;">
+                                </div>
+                            </div>
+                            <div class="mb-5">
+                                <label for="password" class="form-label text-white-50">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-end-0 text-white" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-lock"></i></span>
+                                    <input type="password" class="form-control form-control-lg border-start-0 border-end-0 px-0" id="password" name="password" placeholder="Enter your password" required style="box-shadow: none;">
+                                    <button type="button" class="input-group-text bg-transparent text-white toggle-password" style="border-color: rgba(255,255,255,0.2);"><i class="fas fa-eye"></i></button>
+                                </div>
+                            </div>
+                            <div class="d-grid mb-4">
+                                <button type="submit" class="btn btn-primary btn-lg py-3" style="border-radius: 30px;">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                                </button>
+                            </div>
+                        </form>
+                        <div class="text-center">
+                            {% if login_type == 'client' %}
+                            <p class="mb-3" style="color: rgba(255,255,255,0.7);">Don't have an account? <a href="{{ url_for('register') }}" style="color: #00f2fe; text-decoration: none; font-weight: 600;">Register Now</a></p>
+                            {% endif %}
+                            <a href="{{ url_for('home') }}" class="btn btn-glass btn-sm px-4">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes fadeUp {
+        0% { transform: translateY(30px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.querySelector('.toggle-password')?.addEventListener('click', function() {
+  const passwordInput = document.getElementById('password');
+  const icon = this.querySelector('i');
+  if (passwordInput.type === 'password') {
+      passwordInput.type='text'; icon.classList.replace('fa-eye','fa-eye-slash');
+  } else {
+      passwordInput.type='password'; icon.classList.replace('fa-eye-slash','fa-eye');
+  }
+});
+</script>
+{% endblock %}

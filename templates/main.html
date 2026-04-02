@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}Bike Rental System{% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg glass-nav align-items-center">
+    <div class="container py-2">
+        <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="height:32px; width:auto; margin-right:8px; border-radius:50%;"> BikeRental
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link px-3" href="{{ url_for('main_page') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="#features">Features</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="#bikes">Fleet</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="{{ url_for('login') }}">Login</a></li>
+                <li class="nav-item ms-3">
+                    <a class="btn btn-glass" href="{{ url_for('register') }}">Get Started</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-section d-flex align-items-center text-center" style="min-height: 80vh; padding-top: 100px;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 glass-panel p-5" style="box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+                <h1 class="display-4 fw-bold mb-4" style="background: linear-gradient(45deg, #00f2fe, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Rent Quality Bikes For Your Next Adventure</h1>
+                <p class="lead mb-5" style="color: rgba(255,255,255,0.8);">Discover the perfect ride tailored for your journey. Ride smooth, ride in style.</p>
+                <div class="d-flex justify-content-center gap-4">
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg px-5 py-3" style="border-radius: 30px;">Start Riding</a>
+                    <a href="#bikes" class="btn btn-glass btn-lg px-5 py-3">View Fleet</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="features" class="py-5" style="margin-top: 50px;">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-5" style="color: #fff;">Why Choose Us?</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="glass-panel p-4 h-100">
+                    <div style="width: 70px; height: 70px; background: rgba(0,242,254,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <i class="fas fa-motorcycle fa-2x" style="color: #00f2fe;"></i>
+                    </div>
+                    <h5>Premium Fleet</h5>
+                    <p style="color: rgba(255,255,255,0.7);">Top-notch luxury and sport brands maintained to perfection.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-panel p-4 h-100">
+                    <div style="width: 70px; height: 70px; background: rgba(0,242,254,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <i class="fas fa-bolt fa-2x" style="color: #00f2fe;"></i>
+                    </div>
+                    <h5>High Performance</h5>
+                    <p style="color: rgba(255,255,255,0.7);">Experience speed and reliability without compromises.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-panel p-4 h-100">
+                    <div style="width: 70px; height: 70px; background: rgba(0,242,254,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <i class="fas fa-shield-alt fa-2x" style="color: #00f2fe;"></i>
+                    </div>
+                    <h5>Always Safe</h5>
+                    <p style="color: rgba(255,255,255,0.7);">Rigorous safety checks. Ride with absolute peace of mind.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="bikes" class="py-5" style="margin-top: 50px; margin-bottom: 50px;">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5" style="color: #fff;">Our Collection</h2>
+        <div class="row g-4 justify-content-center">
+            {% for bike in bikes %}
+            <div class="col-md-4 mb-4">
+                <div class="glass-panel h-100 d-flex flex-column overflow-hidden">
+                    <div style="height: 250px; overflow: hidden;">
+                        <img src="{{ resolve_image_path(bike.image_path) }}" class="w-100 h-100" style="object-fit:cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h4 class="mb-0 fw-bold">{{ bike.name }}</h4>
+                            <span class="badge" style="background: rgba(0,242,254,0.2); color: #00f2fe; border: 1px solid #00f2fe;">{{ bike.type | title }}</span>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.7); font-weight: 500;">{{ bike.brand }}</p>
+                        <p style="font-size: 1.5rem; color: #00f2fe; margin-top: auto; font-weight: 600;">
+                            ${{ "%.2f"|format(bike.price_per_hour) }} <span style="font-size: 0.9rem; color: rgba(255,255,255,0.5);">/hr</span>
+                        </p>
+                        <a href="{{ url_for('login') }}" class="btn btn-primary w-100 mt-2 py-2" style="border-radius: 12px; font-weight: bold;">Rent Now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<footer class="text-center py-4 glass-panel" style="border-radius: 0; border-bottom: none; border-left: none; border-right: none;">
+    <p class="mb-0" style="color: rgba(255,255,255,0.6);">&copy; 2026 Bike Rental System. Powered by Glassmorphism & Three.js.</p>
+</footer>
+{% endblock %}

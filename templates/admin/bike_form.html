@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit Bike' if bike else 'Add New Bike' }} - Admin{% endblock %}
+{% block content %}
+<div class="container-fluid"><div class="row">{% include 'admin/_sidebar.html' %}
+<div class="col-md-9 col-lg-10 main-content">{% set title = 'Edit Bike' if bike else 'Add New Bike' %}{% include 'admin/_topbar.html' %}
+<div class="container-fluid mt-4"><div class="d-flex justify-content-between align-items-center mb-4"><div><h2><i class="fas fa-{{ 'edit' if bike else 'plus' }} me-2"></i>{{ 'Edit Bike' if bike else 'Add New Bike' }}</h2><p class="text-muted">{{ 'Update bike information' if bike else 'Add a new bike to your rental inventory' }}</p></div><a href="{{ url_for('admin_bikes') }}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-2"></i>Back to Bikes</a></div>
+<div class="card"><div class="card-body"><form method="POST" enctype="multipart/form-data">
+<div class="row"><div class="col-md-6 mb-3"><label class="form-label">Bike Name *</label><input type="text" class="form-control" name="name" value="{{ bike.name if bike else '' }}" required></div><div class="col-md-6 mb-3"><label class="form-label">Brand *</label><input type="text" class="form-control" name="brand" value="{{ bike.brand if bike else '' }}" required></div></div>
+<div class="row"><div class="col-md-6 mb-3"><label class="form-label">Model *</label><input type="text" class="form-control" name="model" value="{{ bike.model if bike else '' }}" required></div><div class="col-md-6 mb-3"><label class="form-label">Type *</label><input type="text" class="form-control" name="type" value="{{ bike.type if bike else '' }}" required></div></div>
+<div class="row"><div class="col-md-6 mb-3"><label class="form-label">Price Per Hour ($) *</label><input type="number" class="form-control" name="price_per_hour" value="{{ bike.price_per_hour if bike else '' }}" step="0.01" min="0" required></div><div class="col-md-6 mb-3"><label class="form-label">Status *</label><select class="form-control" name="status" required>{% for s in ['available','rented','maintenance','retired'] %}<option value="{{ s }}" {{ 'selected' if bike and bike.status==s }}>{{ s|capitalize }}</option>{% endfor %}</select></div></div>
+<div class="mb-3"><label class="form-label">Description</label><textarea class="form-control" name="description" rows="4">{{ bike.description if bike else '' }}</textarea></div>
+<div class="mb-3"><label class="form-label">Bike Image</label>{% if bike and bike.image_path %}<div class="mb-2"><img src="{{ resolve_image_path(bike.image_path) }}" style="max-width: 180px; max-height: 130px;" class="img-thumbnail"></div>{% endif %}<input type="file" class="form-control" name="image_path" accept="image/jpeg,image/jpg,image/png,image/gif"><div class="form-text">Allowed formats: JPG, PNG, GIF. Leave empty to keep existing image.</div></div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end"><a href="{{ url_for('admin_bikes') }}" class="btn btn-outline-secondary me-md-2">Cancel</a><button type="submit" class="btn btn-gradient">{{ 'Update Bike' if bike else 'Add Bike' }}</button></div>
+</form></div></div>
+</div></div></div></div>
+{% endblock %}
