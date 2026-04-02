@@ -79,7 +79,7 @@
         <div class="row g-4 justify-content-center">
             {% for bike in bikes %}
             <div class="col-md-4 mb-4">
-                <div class="glass-panel h-100 d-flex flex-column overflow-hidden">
+                <div class="glass-panel h-100 d-flex flex-column overflow-hidden" style="cursor: pointer;" onclick="window.location.href='{{ url_for('login') }}'">
                     <div style="height: 250px; overflow: hidden;">
                         <img src="{{ resolve_image_path(bike.image_path) }}" class="w-100 h-100" style="object-fit:cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
                     </div>
